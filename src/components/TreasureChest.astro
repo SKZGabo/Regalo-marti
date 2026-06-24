@@ -1,0 +1,194 @@
+---
+const { friendName = "Marti", message = "" } = Astro.props;
+---
+
+<div class="treasure-chest" id="treasureChest">
+  <div class="chest-lid" style="text-align: center; margin-bottom: 1rem;">
+    <span style="font-size: 3rem;">💎</span>
+    <h3 style="font-family: 'Pirata One', cursive; color: var(--gold);">
+      ¡TESORO ENCONTRADO!
+    </h3>
+  </div>
+
+  <div class="chest-content" id="chestContent">
+    <h2
+      style="font-family: 'Pirata One', cursive; color: var(--wanted-red); margin-bottom: 1.5rem;"
+    >
+      💌 Carta del Capitán 💌
+    </h2>
+
+    <div
+      style="text-align: left; line-height: 1.8; font-family: 'Grenze Gotisch', serif; font-size: 1.2rem;"
+    >
+      {
+        message
+          .split("\n")
+          .map((paragraph: string, i: number) => (
+            <p style="margin-bottom: 1rem;">{paragraph}</p>
+          ))
+      }
+    </div>
+
+    <!-- Fotos añadidas a la carta -->
+    <div class="letter-photos">
+      <img src="/fotos/14.jpg" class="polaroid left-tilt" alt="Recuerdo Inolvidable" />
+      <img src="/fotos/7.jpg" class="polaroid right-tilt" alt="Recuerdo Épico" />
+    </div>
+
+    <div
+      style="margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid var(--gold-dark); text-align: center;"
+    >
+      <p
+        style="font-family: 'Trade Winds', cursive; color: var(--wanted-red); font-size: 0.9rem;"
+      >
+        ⚓ Sellado con el Jolly Roger de la Amistad ⚓
+      </p>
+      <p style="font-size: 3rem; margin-top: 0.5rem;">🏴‍☠️</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Efecto de apertura del cofre
+  const chest = document.getElementById("treasureChest");
+  if (chest) {
+    let isOpen = false;
+
+    chest.addEventListener("click", () => {
+      if (!isOpen) {
+        chest.classList.add("open");
+        isOpen = true;
+
+        // Efecto de brillo dorado
+        const content = document.getElementById("chestContent");
+        if (content) {
+          content.style.animation = "goldenGlow 1s ease-out";
+
+          setTimeout(() => {
+            content.style.animation = "";
+          }, 1000);
+        }
+      }
+    });
+  }
+</script>
+
+<style>
+  .treasure-chest {
+    background: linear-gradient(135deg, var(--treasure-brown), #6b3410);
+    border: 5px solid var(--gold-dark);
+    border-radius: 15px;
+    padding: 2.5rem;
+    max-width: 850px;
+    margin: 3rem auto;
+    position: relative;
+    box-shadow: var(--pirate-shadow), var(--treasure-glow);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .treasure-chest::before {
+    content: "💎";
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 3rem;
+    animation: floatFruit 2s ease-in-out infinite;
+  }
+
+  .treasure-chest:hover {
+    transform: scale(1.02);
+    box-shadow:
+      10px 15px 0 rgba(0, 0, 0, 0.5),
+      0 0 80px rgba(255, 215, 0, 0.6);
+  }
+
+  .treasure-chest.open {
+    animation: openChest 0.5s ease-out;
+  }
+
+  .chest-content {
+    background: var(--gold);
+    padding: 2rem;
+    border-radius: 10px;
+    color: var(--black);
+    text-align: center;
+    border: 3px solid var(--gold-dark);
+    transition: all 0.3s ease;
+    animation: gentleFloat 6s ease-in-out infinite;
+  }
+
+  @keyframes gentleFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .letter-photos {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 2.5rem 0;
+    flex-wrap: wrap;
+  }
+
+  .polaroid {
+    width: 280px;
+    height: 280px;
+    object-fit: cover;
+    border: 12px solid white;
+    border-bottom-width: 40px;
+    border-radius: 4px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+    cursor: pointer;
+  }
+
+  .polaroid.left-tilt {
+    transform: rotate(-6deg);
+  }
+
+  .polaroid.right-tilt {
+    transform: rotate(5deg);
+  }
+
+  .polaroid:hover {
+    transform: rotate(0deg) scale(1.15) !important;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    z-index: 10;
+  }
+
+  @keyframes openChest {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+    100% {
+      transform: scale(1.02);
+    }
+  }
+
+  @keyframes goldenGlow {
+    0% {
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    }
+    50% {
+      box-shadow: 0 0 60px rgba(255, 215, 0, 0.8);
+    }
+    100% {
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    }
+  }
+
+  @keyframes floatFruit {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+</style>

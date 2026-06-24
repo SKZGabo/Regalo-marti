@@ -1,0 +1,93 @@
+---
+const { momentos = [] } = Astro.props;
+---
+
+<div class="pirate-crew">
+  <h2 style="font-family: 'Pirata One', cursive; text-align: center; color: var(--gold); margin-bottom: 2rem;">
+    📸 Tripulación y Recuerdos 📸
+  </h2>
+  
+  <div class="crew-grid">
+    {momentos.map((momento: any) => (
+      <div class="crew-member">
+        <div class="member-photo">
+          {momento.photo ? (
+            momento.photo.endsWith('.mp4') ? (
+              <video src={momento.photo} autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover;" />
+            ) : (
+              <img src={momento.photo} alt={momento.name} />
+            )
+          ) : (
+            <div class="placeholder-photo">🏴‍☠️</div>
+          )}
+        </div>
+        <h3 class="member-name">{momento.name}</h3>
+        <p class="member-role">{momento.role}</p>
+        <p class="member-desc">{momento.description}</p>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .pirate-crew {
+    margin: 4rem auto;
+    max-width: 1000px;
+  }
+  .crew-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+  .crew-member {
+    background: var(--parchment);
+    padding: 1.5rem;
+    border: 4px solid var(--treasure-brown);
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: var(--pirate-shadow);
+    transition: transform 0.3s ease;
+  }
+  .crew-member:hover {
+    transform: translateY(-10px);
+  }
+  .member-photo {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 1rem;
+    border-radius: 50%;
+    border: 4px solid var(--gold);
+    overflow: hidden;
+    background: #444;
+  }
+  .member-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .placeholder-photo {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+  }
+  .member-name {
+    font-family: 'Pirata One', cursive;
+    font-size: 1.5rem;
+    color: var(--wanted-red);
+    margin-bottom: 0.5rem;
+  }
+  .member-role {
+    font-family: 'MedievalSharp', cursive;
+    color: var(--treasure-brown);
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  .member-desc {
+    font-family: 'Grenze Gotisch', serif;
+    font-size: 1.1rem;
+    color: #333;
+  }
+</style>

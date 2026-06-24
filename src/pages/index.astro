@@ -1,11 +1,111 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import { ClientRouter } from "astro:transitions";
+import WantedPoster from "../components/WantedPoster.astro";
+import DevilFruit from "../components/DevilFruit.astro";
+import FloatingFruits from "../components/FloatingFruits.astro";
+import MusicPlayer from "../components/MusicPlayer.astro";
+import "../styles/onepiece.css";
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🏴‍☠️ Feliz Cumpleaños - Martina</title>
+    <ClientRouter />
+  </head>
+
+  <body>
+    <!-- Olas de fondo -->
+    <div class="waves-container">
+      <div class="wave"></div>
+      <div class="wave"></div>
+      <div class="wave"></div>
+    </div>
+
+    <FloatingFruits />
+
+    <!-- Nubes -->
+    <div class="clouds">
+      <div class="cloud" style="top: 5%; animation-delay: 0s;">☁️</div>
+      <div
+        class="cloud"
+        style="top: 15%; animation-delay: 5s; font-size: 3rem;"
+      >
+        ☁️
+      </div>
+      <div
+        class="cloud"
+        style="top: 25%; animation-delay: 10s; font-size: 4rem;"
+      >
+        ☁️
+      </div>
+    </div>
+
+    <main style="padding: 2rem; position: relative; z-index: 1;">
+      <!-- Título épico -->
+      <div style="text-align: center; margin-bottom: 3rem;">
+        <h1
+          style="font-family: 'Pirata One', cursive; font-size: 3rem; color: var(--gold); text-shadow: 3px 3px 0 rgba(0,0,0,0.5);"
+        >
+          ⚓ CUMPLEAÑOS MARTINA ⚓
+        </h1>
+        <p
+          style="font-family: 'Trade Winds', cursive; font-size: 1.2rem; color: white; margin-top: 1rem;"
+        >
+          "El tesoro más grande no es el oro, sino la amistad verdadera"
+        </p>
+        <p
+          style="font-family: 'Grenze Gotisch', serif; color: var(--gold); margin-top: 0.5rem; font-style: italic;"
+        >
+          - Gol D. Gabo
+        </p>
+      </div>
+
+      <!-- Cartel de Se Busca -->
+      <WantedPoster
+        name="Marti D. Amistad"
+        epithet="La Pirata Más Increíble"
+        bounty="440,000,000"
+        photo="/fotos/1.jpeg"
+      />
+
+      <!-- Mensaje del capitán -->
+      <div style="max-width: 600px; margin: 2rem auto; text-align: center;">
+        <div
+          style="background: var(--parchment); border: 5px solid var(--treasure-brown); padding: 2rem; box-shadow: var(--pirate-shadow);"
+        >
+          <h2
+            style="font-family: 'Pirata One', cursive; color: var(--wanted-red); margin-bottom: 1rem;"
+          >
+            ⚓ Mensaje del Capitán ⚓
+          </h2>
+          <p
+            style="font-family: 'Grenze Gotisch', serif; font-size: 1.1rem; line-height: 1.6;"
+          >
+            ¡Feliz cumpleaños, nakama! 🏴‍☠️<br /><br />
+            Hoy celebramos el día en que el mundo fue bendecido con tu presencia.
+            Eres una persona increíble, una verdadera pirata de los mares, y estoy
+            agradecido de tenerte en mi tripulación.<br /><br />
+            Que cumplas muchos años más, con la fuerza de Luffy, la inteligencia de
+            Robin, el corazón de Chopper y la lealtad de Zoro.<br /><br />
+            ¡El One Piece de la amistad es real porque existes tú!
+          </p>
+        </div>
+      </div>
+
+      <!-- Fruta del Diablo para abrir el regalo -->
+      <DevilFruit
+        href="/regalo"
+        fruitName="Mera Mera no Mi - Fruta del Regalo"
+      />
+
+      <p
+        style="text-align: center; color: white; font-family: 'Grenze Gotisch', serif; margin-top: 1rem; opacity: 0.8;"
+      >
+        🍎 Haz clic en la fruta para descubrir el tesoro escondido...
+      </p>
+    </main>
+    <MusicPlayer />
+  </body>
+</html>

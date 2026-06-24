@@ -1,0 +1,118 @@
+---
+const { href = "/regalo", fruitName = "Mera Mera no Mi" } = Astro.props;
+---
+
+<a href={href} class="devil-fruit-container" style="text-decoration: none;">
+  <div class="devil-fruit">
+    <div class="fruit-stem"></div>
+    <div class="fruit-body">
+      <div class="fruit-swirl"></div>
+    </div>
+  </div>
+  <div class="fruit-label">
+    <p class="fruit-name">{fruitName}</p>
+    <p class="fruit-hint">¡Cómete esta fruta para descubrir el tesoro!</p>
+  </div>
+</a>
+
+<style>
+  .devil-fruit-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 3rem auto;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .devil-fruit-container:hover .devil-fruit {
+    transform: scale(1.2);
+    animation: floatFruit 1s ease-in-out infinite;
+  }
+
+  .devil-fruit {
+    width: 200px;
+    height: 200px;
+    cursor: pointer;
+    position: relative;
+    animation: floatFruit 3s ease-in-out infinite;
+    transition: all 0.3s ease;
+  }
+
+  @keyframes floatFruit {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  .fruit-body {
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+      circle at 30% 30%,
+      #800080,
+      #ff69b4 60%,
+      #4a0066 100%
+    );
+    border-radius: 50% 50% 45% 55%;
+    position: relative;
+    box-shadow:
+      0 10px 30px rgba(128, 0, 128, 0.5),
+      inset 0 -10px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .fruit-stem {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 30px;
+    background: var(--treasure-brown);
+    border-radius: 5px;
+  }
+
+  .fruit-swirl {
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    width: 60%;
+    height: 60%;
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    animation: swirl 3s linear infinite;
+  }
+
+  @keyframes swirl {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .fruit-label {
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  .fruit-name {
+    font-family: "Pirata One", cursive;
+    font-size: 1.5rem;
+    color: var(--gold);
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+  }
+
+  .fruit-hint {
+    font-family: "Grenze Gotisch", serif;
+    font-size: 1rem;
+    color: white;
+    margin-top: 0.5rem;
+    opacity: 0.8;
+  }
+</style>

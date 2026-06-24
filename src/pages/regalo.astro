@@ -1,0 +1,162 @@
+---
+import { ClientRouter } from "astro:transitions";
+import PirateCrew from "../components/PirateCrew.astro";
+import TreasureChest from "../components/TreasureChest.astro";
+import FloatingFruits from "../components/FloatingFruits.astro";
+import MusicPlayer from "../components/MusicPlayer.astro";
+import "../styles/onepiece.css";
+
+const momentos = [
+  {
+    photo: "/fotos/2.jpeg",
+    name: "Nakama Inseparable",
+    role: "HandRoll",
+    description: "Recuerdos que valen oro",
+  },
+  {
+    photo: "/fotos/4.jpeg",
+    name: "Momentos Épicos",
+    role: "Noches de genshin",
+    description: "Perdiendo la cordura",
+  },
+  {
+    photo: "/fotos/5.jpeg",
+    name: "Fan numero 1",
+    role: "Navegante",
+    description: "de One piece nadhea",
+  },
+  {
+    photo: "/fotos/6.jpeg",
+    name: "Tripulación Unida",
+    role: "Polaroid",
+    description: "Momentos inolvidables",
+  },
+  {
+    photo: "/fotos/12.png",
+    name: "Buscando el One Piece",
+    role: "Capitan",
+    description: "Luffy para la Felicidad",
+  },
+  {
+    photo: "/fotos/13.mp4",
+    name: "Concierto",
+    role: "El Trueno Pai",
+    description: "Video despues del concierto",
+  },
+];
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🏴‍☠️ El Tesoro de Marti - One Piece</title>
+    <ClientRouter />
+  </head>
+
+  <body>
+    <!-- Olas de fondo -->
+    <div class="waves-container">
+      <div class="wave"></div>
+      <div class="wave"></div>
+      <div class="wave"></div>
+    </div>
+
+    <FloatingFruits />
+
+    <main style="padding: 2rem; position: relative; z-index: 1;">
+      <!-- Título de la isla del tesoro -->
+      <div style="text-align: center; margin-bottom: 3rem;">
+        <h1
+          style="font-family: 'Pirata One', cursive; font-size: 3rem; color: var(--gold); text-shadow: 3px 3px 0 rgba(0,0,0,0.5); animation: treasureGlow 2s infinite;"
+        >
+          🗺️ ISLA DEL TESORO 🗺️
+        </h1>
+        <p
+          style="font-family: 'Trade Winds', cursive; color: white; margin-top: 1rem;"
+        >
+          ¡Has encontrado el tesoro más valioso del Grand Line!
+        </p>
+      </div>
+
+      <!-- Mapa del tesoro simbólico -->
+      <div class="treasure-map">
+        <h3
+          style="font-family: 'Pirata One', cursive; text-align: center; color: var(--wanted-red);"
+        >
+          🧭 Mapa de Nuestra Amistad 🧭
+        </h3>
+        <div class="map-path">
+          <div class="map-x">❌</div>
+        </div>
+        <div
+          style="display: flex; justify-content: space-around; margin-top: 2rem;"
+        >
+          <div style="text-align: center;">
+            <span style="font-size: 2rem;">🏝️</span>
+            <p>Isla del<br />Primer Encuentro</p>
+          </div>
+          <div style="text-align: center;">
+            <span style="font-size: 2rem;">🌊</span>
+            <p>Mar de<br />Aventuras</p>
+          </div>
+          <div style="text-align: center;">
+            <span style="font-size: 2rem;">⛰️</span>
+            <p>Montaña de<br />Recuerdos</p>
+          </div>
+          <div style="text-align: center;">
+            <span style="font-size: 2rem;">💎</span>
+            <p>¡TESORO<br />AQUÍ!</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Galería de la tripulación (momentos) -->
+      <PirateCrew momentos={momentos} />
+
+      <!-- Cofre del tesoro (carta) -->
+      <TreasureChest
+        friendName="Marti"
+        message={`Querida Marti,
+
+¡Feeeeeeliz cumpleaños, hermanita de mi vida! Te quiero muchísimo.
+
+Quería aprovechar este día para decirte lo feliz que me hace tenerte a mi lado. Ya son 8 años de amistad, 8 años compartiendo, apañándonos en todas y viéndonos crecer. En todo este tiempo me has demostrado ser la mejor nakama que alguien podría pedir, y me siento demasiado afortunado de poder contar contigo.
+
+Que sigas cumpliendo muchos años más y que todas tus metas se cumplan. Eres una gran persona, una hermosa persona ❤️, ¡nunca lo dudes! Te mereces lo mejor de lo mejor, hermanita. Admiro mucho quién eres y todo lo bueno que le transmites a quienes te rodean.
+
+No sabes cuánto te quiero. Ojalá poder estar presente pa los días de tu cumpleaños y celebrarlo juntos como se debe, pero aunque está esta distancia sad, quiero que sepas que te acompaño siempre y que estoy ahí contigo.
+
+Espero que te encante este regalo que te armé a la distancia y que hoy te regaloneen muchísimo. Te mando un abrazo gigante.
+
+Con todo mi cariño,
+
+Gabriel`}
+      />
+
+      <!-- Botón para volver -->
+      <div style="text-align: center; margin: 3rem 0;">
+        <a href="/" class="pirate-btn" style="text-decoration: none;">
+          Volver al Barco
+        </a>
+      </div>
+    </main>
+    <MusicPlayer />
+
+    <style>
+      @keyframes treasureGlow {
+        0%,
+        100% {
+          text-shadow:
+            3px 3px 0 rgba(0, 0, 0, 0.5),
+            0 0 20px rgba(255, 215, 0, 0.3);
+        }
+        50% {
+          text-shadow:
+            3px 3px 0 rgba(0, 0, 0, 0.5),
+            0 0 40px rgba(255, 215, 0, 0.6);
+        }
+      }
+    </style>
+  </body>
+</html>

@@ -1,0 +1,472 @@
+/* ============ FUENTES ONE PIECE ============ */
+@import url('https://fonts.googleapis.com/css2?family=Pirata+One&family=Trade+Winds&family=Grenze+Gotisch:wght@400;700&family=MedievalSharp&display=swap');
+
+:root {
+  /* Colores One Piece */
+  --sea-blue: #0066cc;
+  --sea-dark: #003366;
+  --sky-blue: #87ceeb;
+  --gold: #ffd700;
+  --gold-dark: #b8860b;
+  --treasure-brown: #8b4513;
+  --parchment: #f4e4c1;
+  --parchment-dark: #d4c4a1;
+  --wanted-red: #cc0000;
+  --wanted-yellow: #ffcc00;
+  --straw-hat-yellow: #ffd700;
+  --merry-brown: #8b4513;
+  --devil-purple: #800080;
+  --devil-pink: #ff69b4;
+  --marine-white: #f0f0f0;
+  --marine-blue: #000080;
+  --black: #1a1a1a;
+  --smoke: #cccccc;
+  
+  /* Sombras y efectos */
+  --pirate-shadow: 5px 5px 0 rgba(0, 0, 0, 0.5);
+  --treasure-glow: 0 0 30px rgba(255, 215, 0, 0.5);
+  --sea-glow: 0 0 20px rgba(0, 102, 204, 0.5);
+}
+
+/* ============ RESET Y BASE ============ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Grenze Gotisch', 'Georgia', serif;
+  background: linear-gradient(180deg, var(--sky-blue) 0%, #4a90e2 50%, var(--sea-dark) 100%);
+  color: var(--black);
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* ============ FONDO DEL MAR ============ */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      rgba(255, 255, 255, 0.03) 2px,
+      transparent 4px
+    ),
+    radial-gradient(
+      ellipse at 50% 100%,
+      var(--sea-dark) 0%,
+      var(--sea-blue) 40%,
+      var(--sky-blue) 100%
+    );
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ============ OLAS ANIMADAS ============ */
+.waves-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 150px;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 50px,
+    rgba(0, 102, 204, 0.3) 50px,
+    rgba(0, 102, 204, 0.3) 60px
+  );
+  animation: wave 8s linear infinite;
+}
+
+.wave:nth-child(2) {
+  animation-duration: 6s;
+  animation-direction: reverse;
+  opacity: 0.5;
+}
+
+.wave:nth-child(3) {
+  animation-duration: 10s;
+  opacity: 0.7;
+}
+
+@keyframes wave {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ============ CARTEL DE SE BUSCA ============ */
+.wanted-poster {
+  background: var(--parchment);
+  border: 8px solid var(--wanted-yellow);
+  box-shadow: var(--pirate-shadow), inset 0 0 30px rgba(139, 69, 19, 0.3);
+  padding: 2rem;
+  max-width: 400px;
+  margin: 2rem auto;
+  position: relative;
+  text-align: center;
+  transform: rotate(-2deg);
+  transition: all 0.3s ease;
+}
+
+.wanted-poster::before {
+  content: 'WANTED';
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Trade Winds', cursive;
+  font-size: 3rem;
+  color: var(--wanted-red);
+  text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.3);
+  z-index: 1;
+  letter-spacing: 5px;
+}
+
+.wanted-poster:hover {
+  transform: rotate(0deg) scale(1.05);
+  box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.5), 0 0 50px rgba(255, 215, 0, 0.3);
+}
+
+.wanted-photo {
+  width: 200px;
+  height: 200px;
+  margin: 3rem auto 1rem;
+  border: 5px solid var(--treasure-brown);
+  border-radius: 10px;
+  overflow: hidden;
+  background: #ddd;
+}
+
+.wanted-name {
+  font-family: 'Pirata One', cursive;
+  font-size: 2rem;
+  color: var(--black);
+  margin: 0.5rem 0;
+}
+
+.wanted-bounty {
+  font-family: 'MedievalSharp', cursive;
+  font-size: 1.5rem;
+  color: var(--wanted-red);
+  margin: 0.5rem 0;
+}
+
+.wanted-bounty span {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+/* ============ FRUTA DEL DIABLO ============ */
+.devil-fruit {
+  width: 200px;
+  height: 200px;
+  margin: 2rem auto;
+  cursor: pointer;
+  position: relative;
+  animation: floatFruit 3s ease-in-out infinite;
+  transition: all 0.3s ease;
+}
+
+.devil-fruit:hover {
+  transform: scale(1.2);
+  animation: floatFruit 1s ease-in-out infinite;
+}
+
+@keyframes floatFruit {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+.fruit-body {
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at 30% 30%,
+    var(--devil-purple),
+    var(--devil-pink) 60%,
+    #4a0066 100%
+  );
+  border-radius: 50% 50% 45% 55%;
+  position: relative;
+  box-shadow: 
+    0 10px 30px rgba(128, 0, 128, 0.5),
+    inset 0 -10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.fruit-stem {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 30px;
+  background: var(--treasure-brown);
+  border-radius: 5px;
+}
+
+.fruit-swirl {
+  position: absolute;
+  top: 20%;
+  left: 20%;
+  width: 60%;
+  height: 60%;
+  border: 5px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  animation: swirl 3s linear infinite;
+}
+
+@keyframes swirl {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ============ COFRE DEL TESORO ============ */
+.treasure-chest {
+  background: linear-gradient(135deg, var(--treasure-brown), #6b3410);
+  border: 5px solid var(--gold-dark);
+  border-radius: 15px;
+  padding: 2rem;
+  max-width: 600px;
+  margin: 3rem auto;
+  position: relative;
+  box-shadow: var(--pirate-shadow), var(--treasure-glow);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.treasure-chest::before {
+  content: '💎';
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 3rem;
+  animation: floatFruit 2s ease-in-out infinite;
+}
+
+.treasure-chest:hover {
+  transform: scale(1.05);
+  box-shadow: 10px 15px 0 rgba(0, 0, 0, 0.5), 0 0 80px rgba(255, 215, 0, 0.8);
+}
+
+.treasure-chest.open {
+  animation: openChest 0.5s ease-out;
+}
+
+@keyframes openChest {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1.05); }
+}
+
+.chest-content {
+  background: var(--gold);
+  padding: 2rem;
+  border-radius: 10px;
+  color: var(--black);
+  text-align: center;
+  border: 3px solid var(--gold-dark);
+}
+
+/* ============ MAPA DEL TESORO ============ */
+.treasure-map {
+  background: var(--parchment);
+  border: 10px solid var(--treasure-brown);
+  padding: 2rem;
+  max-width: 800px;
+  margin: 2rem auto;
+  position: relative;
+  box-shadow: var(--pirate-shadow);
+  transform: rotate(1deg);
+}
+
+.treasure-map::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 50% 50%, transparent 30%, rgba(139, 69, 19, 0.2) 100%);
+  pointer-events: none;
+}
+
+.map-path {
+  position: relative;
+  height: 200px;
+  border-bottom: 3px dashed var(--wanted-red);
+  margin: 2rem 0;
+}
+
+.map-x {
+  position: absolute;
+  bottom: -15px;
+  right: 10%;
+  font-size: 3rem;
+  color: var(--wanted-red);
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+}
+
+/* ============ GALERÍA DE LA TRIPULACIÓN ============ */
+.crew-gallery {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.crew-title {
+  font-family: 'Pirata One', cursive;
+  font-size: 2.5rem;
+  text-align: center;
+  color: var(--gold);
+  text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.5);
+  margin-bottom: 2rem;
+}
+
+.crew-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.crew-card {
+  background: var(--parchment);
+  border: 5px solid var(--treasure-brown);
+  box-shadow: var(--pirate-shadow);
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.crew-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, var(--wanted-red), var(--gold), var(--sea-blue));
+}
+
+.crew-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 10px 15px 0 rgba(0, 0, 0, 0.5);
+}
+
+.crew-photo {
+  width: 100%;
+  aspect-ratio: 1;
+  background: #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+}
+
+.crew-info {
+  padding: 1rem;
+}
+
+.crew-name {
+  font-family: 'Pirata One', cursive;
+  font-size: 1.5rem;
+  color: var(--black);
+}
+
+.crew-role {
+  font-family: 'Trade Winds', cursive;
+  font-size: 0.9rem;
+  color: var(--treasure-brown);
+  margin-top: 0.5rem;
+}
+
+/* ============ BOTONES PIRATA ============ */
+.pirate-btn {
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  border: 3px solid var(--treasure-brown);
+  padding: 1rem 2rem;
+  font-family: 'Pirata One', cursive;
+  font-size: 1.5rem;
+  color: var(--black);
+  cursor: pointer;
+  box-shadow: var(--pirate-shadow);
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+  overflow: hidden;
+}
+
+.pirate-btn::before {
+  content: '⚓';
+  margin-right: 10px;
+}
+
+.pirate-btn:hover {
+  transform: scale(1.1);
+  background: linear-gradient(135deg, var(--straw-hat-yellow), var(--gold));
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.5);
+}
+
+/* ============ EFECTOS ESPECIALES ============ */
+@keyframes sail {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(10px); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+.floating {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Nubes animadas */
+.clouds {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.cloud {
+  position: absolute;
+  font-size: 5rem;
+  opacity: 0.3;
+  animation: floatCloud 20s linear infinite;
+}
+
+@keyframes floatCloud {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100vw); }
+}

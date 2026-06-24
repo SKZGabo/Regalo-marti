@@ -1,0 +1,191 @@
+---
+---
+<div class="music-player" transition:persist>
+  <div class="player-header">
+    <span class="icon">🎵</span>
+    <span class="title" id="songTitle">Marti Temas</span>
+  </div>
+  
+  <div class="player-controls">
+    <button id="prevBtn" class="control-btn" title="Anterior">⏮</button>
+    <button id="playBtn" class="control-btn play-btn" title="Reproducir/Pausar">▶</button>
+    <button id="nextBtn" class="control-btn" title="Siguiente">⏭</button>
+  </div>
+
+  <div class="volume-control">
+    <span style="font-size: 0.9rem;">🔈</span>
+    <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.4">
+    <span style="font-size: 0.9rem;">🔊</span>
+  </div>
+  
+  <!-- Audio oculto, lo controlamos con los botones -->
+  <audio id="bgMusic" preload="auto">
+    <source id="audioSource" src="/music/ytmp3free.cc_alma-dinamita-youtubemp3free.org.mp3" type="audio/mpeg" />
+  </audio>
+</div>
+
+<script>
+  // Lista de reproducción
+  const playlist = [
+    { src: '/music/ytmp3free.cc_alma-dinamita-youtubemp3free.org.mp3', name: 'Alma Dinamita' },
+    { src: '/music/straykids.mp3', name: 'Stray Kids' },
+    { src: '/music/a.mp3', name: 'Track Secreto' }
+  ];
+
+  let currentSongIndex = 0;
+
+  function loadAndPlaySong(index, play=true) {
+    const audio = document.getElementById('bgMusic') as HTMLAudioElement;
+    const source = document.getElementById('audioSource') as HTMLSourceElement;
+    const songTitle = document.getElementById('songTitle');
+    const playBtn = document.getElementById('playBtn');
+
+    if (audio && source && songTitle) {
+      source.src = playlist[index].src;
+      songTitle.textContent = playlist[index].name;
+      audio.load();
+      if (play) {
+        audio.play().then(() => {
+          if (playBtn) playBtn.textContent = '⏸';
+        }).catch(e => console.log("Autoplay prevenido", e));
+      }
+    }
+  }
+
+  // Inicializar reproductor (funciona en carga inicial y al navegar)
+  document.addEventListener('astro:page-load', () => {
+    const audio = document.getElementById('bgMusic') as HTMLAudioElement;
+    const prevBtn = document.getElementById('prevBtn');
+    const playBtn = document.getElementById('playBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const volumeSlider = document.getElementById('volumeSlider') as HTMLInputElement;
+    
+    if (audio && !audio.hasAttribute('data-initialized')) {
+      audio.volume = volumeSlider ? parseFloat(volumeSlider.value) : 0.4;
+      
+      if (volumeSlider) {
+        volumeSlider.addEventListener('input', (e) => {
+          const target = e.target as HTMLInputElement;
+          audio.volume = parseFloat(target.value);
+        });
+      }
+      
+      // Cuando la canción termina, pasar a la siguiente automáticamente
+      audio.addEventListener('ended', () => {
+        currentSongIndex = (currentSongIndex + 1) % playlist.length;
+        loadAndPlaySong(currentSongIndex, true);
+      });
+
+      if (playBtn) {
+        playBtn.addEventListener('click', () => {
+          if (audio.paused) {
+            audio.play();
+            playBtn.textContent = '⏸';
+          } else {
+            audio.pause();
+            playBtn.textContent = '▶';
+          }
+        });
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+          currentSongIndex = (currentSongIndex + 1) % playlist.length;
+          loadAndPlaySong(currentSongIndex, true);
+        });
+      }
+
+      if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+          currentSongIndex = (currentSongIndex - 1 + playlist.length) % playlist.length;
+          loadAndPlaySong(currentSongIndex, true);
+        });
+      }
+
+      // Marcar como inicializado para no duplicar eventos en transiciones
+      audio.setAttribute('data-initialized', 'true');
+    }
+  });
+</script>
+
+<style>
+  .music-player {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, var(--parchment, #f4e4bc), #e8d09e);
+    border: 4px solid var(--treasure-brown, #5c2c16);
+    border-radius: 12px;
+    padding: 12px 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.6);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    transition: transform 0.3s ease;
+  }
+
+  .music-player:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+  }
+
+  .player-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Pirata One', cursive;
+    color: var(--wanted-red, #8b0000);
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 0px rgba(0,0,0,0.1);
+  }
+
+  .player-controls {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .control-btn {
+    background: var(--treasure-brown, #5c2c16);
+    color: var(--gold, #ffd700);
+    border: 2px solid var(--gold-dark, #b8860b);
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  }
+
+  .control-btn:hover {
+    background: var(--wanted-red, #8b0000);
+    transform: scale(1.1);
+  }
+
+  .play-btn {
+    width: 45px;
+    height: 45px;
+    font-size: 1.2rem;
+  }
+
+  .volume-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 5px;
+  }
+  
+  input[type="range"] {
+    width: 100px;
+    accent-color: var(--wanted-red, #8b0000);
+    cursor: pointer;
+  }
+</style>
